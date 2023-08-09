@@ -48,7 +48,7 @@ public class Reserva {
 		}
 	}
 
-    //
+    //editar habitaciones
         public void reservarHabitacion(Hotel hotel, Habitacion habitacion,Cliente cliente, boolean estadoHabitacion) {
         for (int i = 0; i < hotel.getListaHabitaciones().size(); i++) {
 			if (hotel.getListaHabitaciones().get(i).getNumeroHabitacion() == habitacion.getNumeroHabitacion()) {
@@ -64,7 +64,7 @@ public class Reserva {
 			}
 		}
 	}
-
+    //Lista de habitaciones disponibles y la lista de habitaciones no disponibles
     public Map<Integer, ArrayList> getHabitacionDisponible(Hotel hotel){ 
         Map<Integer, ArrayList> estadoHabitaciones=new HashMap<>();
         ArrayList<Habitacion> habitacionDisponibles = new ArrayList<>();
@@ -81,7 +81,7 @@ public class Reserva {
         
         return estadoHabitaciones;
     }
-
+//recopila la informacion del de las habitaciones por hotel
     public String verInformacionHotel(Hotel hotel){
         String informacionHotel = "Hotel :"+ hotel.getNombreHotel();
         for (Habitacion habitacion : hotel.getListaHabitaciones()) {
