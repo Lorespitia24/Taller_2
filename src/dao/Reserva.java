@@ -16,6 +16,8 @@ public class Reserva {
     public Reserva() {
         listaHoteles = new ArrayList<>();
         listaClientes = new ArrayList<>();
+        crearHotel("Hilton", 10);
+        listaClientes.add(crearCliente("Luis", 123, "SM"));
     }
    //crear cliente
    public Cliente crearCliente(String nombre,int cedula, String empresa) {
@@ -80,6 +82,18 @@ public class Reserva {
         return estadoHabitaciones;
     }
 
+    public String verInformacionHotel(Hotel hotel){
+        String informacionHotel = "Hotel :"+ hotel.getNombreHotel();
+        for (Habitacion habitacion : hotel.getListaHabitaciones()) {
+            if (habitacion.isEstadoHabitacion()) {
+                informacionHotel += " Empresa :"+ habitacion.getCliente().getEmpresa()+ " Nombre Cliente "+ habitacion.getCliente().getNombre() +" Cedula Cliente "+ habitacion.getCliente().getCedula()
+                                    +" Habitacion #"+ habitacion.getNumeroHabitacion() + "\n";
+            }
+            
+        }
+        return informacionHotel ;
+
+    }
 
         public ArrayList<Hotel> getListaHoteles() {
             return listaHoteles;
@@ -88,11 +102,4 @@ public class Reserva {
             return listaClientes;
         }
     
-        
-
-    
-
-
-    
-
 }

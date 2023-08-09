@@ -146,25 +146,25 @@ public class Controller {
             case "Suma":
                 double valor_suma_1 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el primer valor: "));
                 double valor_suma_2 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el segundo valor: "));
-                JOptionPane.showMessageDialog(null, calculadora.suma(valor_suma_1, valor_suma_2));
+                JOptionPane.showMessageDialog(null,"La suma total es: " +  calculadora.suma(valor_suma_1, valor_suma_2));
                 calculadora();
             break;
             case "Resta":
                 double valor_resta_1 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el primer valor: "));
                 double valor_resta_2 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el segundo valor: "));
-                JOptionPane.showMessageDialog(null, calculadora.resta(valor_resta_1, valor_resta_2));
+                JOptionPane.showMessageDialog(null,"La resta total es: " +  calculadora.resta(valor_resta_1, valor_resta_2));
                 calculadora();
             break; 
             case "Multiplicación":
                 double valor_multiplicacion_1 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el primer valor: "));
                 double valor_multiplicacion_2 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el segundo valor: "));
-                JOptionPane.showMessageDialog(null, calculadora.multiplicacion(valor_multiplicacion_1, valor_multiplicacion_2));
+                JOptionPane.showMessageDialog(null,"La multiplicación total es: " +  calculadora.multiplicacion(valor_multiplicacion_1, valor_multiplicacion_2));
                 calculadora();
             break;
             case "División": 
                 double valor_division_1 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el primer valor: "));
                 double valor_division_2 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el segundo valor: "));
-                JOptionPane.showMessageDialog(null, calculadora.division(valor_division_1, valor_division_2));
+                JOptionPane.showMessageDialog(null,"La división total es: " +  calculadora.division(valor_division_1, valor_division_2));
                 calculadora();
             break; 
             case "Volver":
@@ -175,7 +175,7 @@ public class Controller {
     
 
     public void sistemaHotel(){
-        Object[] selection = { "Crear Hotel", "Reservar Habitación", "Habitaciones disponibles", "Cancelar Reserva", "Volver"};
+        Object[] selection = { "Crear Hotel", "Reservar Habitación", "Habitaciones disponibles", "Cancelar Reserva","Ver Información", "Volver"};
             
         
         Object seleccionAccion = JOptionPane.showInputDialog(null, "Seleccione una operación",
@@ -200,15 +200,21 @@ public class Controller {
                 sistemaHotel();
             break;
             case "Cancelar Reserva":
-             Hotel seleccion_hotel_cancelar =(Hotel) (JOptionPane.showInputDialog(null, "Seleccione el hotel",
-                  "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getListaHoteles().toArray(), reserva.getListaHoteles().toArray()[0].toString()));
-              
-            Habitacion seleccion_habitacion_cancelar = (Habitacion) (JOptionPane.showInputDialog(null, "Seleccione la habitación",
-                  "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getHabitacionDisponible(seleccion_hotel_cancelar).get(2).toArray(), seleccion_hotel_cancelar.getListaHabitaciones().toArray()[0].toString())); 
+                Hotel seleccion_hotel_cancelar =(Hotel) (JOptionPane.showInputDialog(null, "Seleccione el hotel",
+                    "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getListaHoteles().toArray(), reserva.getListaHoteles().toArray()[0].toString()));
+                
+                Habitacion seleccion_habitacion_cancelar = (Habitacion) (JOptionPane.showInputDialog(null, "Seleccione la habitación",
+                    "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getHabitacionDisponible(seleccion_hotel_cancelar).get(2).toArray(), seleccion_hotel_cancelar.getListaHabitaciones().toArray()[0].toString())); 
 
                 reserva.generarReserva(seleccion_hotel_cancelar, seleccion_habitacion_cancelar, null, false);
-       
+        
                 sistemaHotel();
+            break;
+            case "Ver Información":
+                Hotel seleccion_hotel_informacion =(Hotel) (JOptionPane.showInputDialog(null, "Seleccione el hotel",
+                    "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getListaHoteles().toArray(), reserva.getListaHoteles().toArray()[0].toString()));
+                JOptionPane.showMessageDialog(null, reserva.verInformacionHotel(seleccion_hotel_informacion));
+                sistemaHotel();   
             break;
             case "Volver":
                 menuInicial();
@@ -219,7 +225,7 @@ public class Controller {
     }
 
         public Cliente clientes(){
-         Object[] selection = { "Cliente Nuevo", "Cliente Antiguo", "Volver"};
+         Object[] selection = { "Cliente Nuevo", "Cliente Antiguo"};
             
         
         Object seleccionAccion = JOptionPane.showInputDialog(null, "Seleccione una operación",

@@ -11,6 +11,7 @@ public class SistemaAlumnos {
 
 	public SistemaAlumnos() {
 		listaAlumnos = new ArrayList<>();
+        agregarAlumno("Juan", 20);
 	}
 
     //crear lista alumnos
