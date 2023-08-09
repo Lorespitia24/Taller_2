@@ -7,6 +7,7 @@ import dao.ConversorMonedas;
 import dao.Reserva;
 import dao.SistemaAlumnos;
 import entity.Alumno;
+import entity.Cliente;
 import entity.Habitacion;
 import entity.Hotel;
 
@@ -189,15 +190,7 @@ public class Controller {
                 sistemaHotel();
             break;
             case "Reservar Habitación":
-                Hotel seleccion_hotel =(Hotel) (JOptionPane.showInputDialog(null, "Seleccione el hotel",
-                  "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getListaHoteles().toArray(), reserva.getListaHoteles().toArray()[0].toString()));
-              
-                Habitacion seleccion_habitacion = (Habitacion) (JOptionPane.showInputDialog(null, "Seleccione el habitación",
-                  "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getHabitacionDisponible(seleccion_hotel).get(1).toArray(), seleccion_hotel.getListaHabitaciones().toArray()[0].toString())); 
-
-                reserva.generarReserva(seleccion_hotel, seleccion_habitacion, true);
-                System.out.println(seleccion_hotel.toString() + seleccion_habitacion.toString());
-                sistemaHotel();
+                getSeleccion_habitacion();
             break;
             case "Habitaciones disponibles":
                 Hotel seleccion_hotel_disponible =(Hotel) (JOptionPane.showInputDialog(null, "Seleccione el hotel",
@@ -207,13 +200,13 @@ public class Controller {
                 sistemaHotel();
             break;
             case "Cancelar Reserva":
-             Hotel seleccion_hotel_cancelar =(Hotel) (JOptionPane.showInputDialog(null, "Seleccione el habitación",
+             Hotel seleccion_hotel_cancelar =(Hotel) (JOptionPane.showInputDialog(null, "Seleccione el hotel",
                   "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getListaHoteles().toArray(), reserva.getListaHoteles().toArray()[0].toString()));
               
-                Habitacion seleccion_habitacion_cancelar = (Habitacion) (JOptionPane.showInputDialog(null, "Seleccione el habitación",
+            Habitacion seleccion_habitacion_cancelar = (Habitacion) (JOptionPane.showInputDialog(null, "Seleccione la habitación",
                   "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getHabitacionDisponible(seleccion_hotel_cancelar).get(2).toArray(), seleccion_hotel_cancelar.getListaHabitaciones().toArray()[0].toString())); 
 
-                reserva.generarReserva(seleccion_hotel_cancelar, seleccion_habitacion_cancelar, false);
+                reserva.generarReserva(seleccion_hotel_cancelar, seleccion_habitacion_cancelar, null, false);
        
                 sistemaHotel();
             break;
@@ -223,6 +216,42 @@ public class Controller {
 
         }
 
+    }
+
+        public Cliente clientes(){
+         Object[] selection = { "Cliente Nuevo", "Cliente Antiguo", "Volver"};
+            
+        
+        Object seleccionAccion = JOptionPane.showInputDialog(null, "Seleccione una operación",
+            "Cliente", JOptionPane.QUESTION_MESSAGE, null, selection, selection[0].toString());
+
+        Cliente cliente = null;
+            
+        switch (seleccionAccion.toString()) {
+            case "Cliente Nuevo":
+                String nombre_empresa = JOptionPane.showInputDialog("Ingrese el nombre de la empresa:");
+                String nombre_cliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
+                int cedula = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de cedula:"));
+                cliente = reserva.crearCliente(nombre_cliente, cedula, nombre_empresa);
+            break;
+            case "Cliente Antiguo":
+                cliente =(Cliente) (JOptionPane.showInputDialog(null, "Seleccione el cliente",
+                    "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getListaClientes().toArray(), reserva.getListaHoteles().toArray()[0].toString()));
+            break;
+        }
+        return cliente;
+    } 
+
+    private void getSeleccion_habitacion() {
+        Hotel seleccion_hotel =(Hotel) (JOptionPane.showInputDialog(null, "Seleccione el hotel",
+          "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getListaHoteles().toArray(), reserva.getListaHoteles().toArray()[0].toString()));
+           
+        Habitacion seleccion_habitacion = (Habitacion) (JOptionPane.showInputDialog(null, "Seleccione la habitación",
+          "Sistema Hotel", JOptionPane.QUESTION_MESSAGE, null, reserva.getHabitacionDisponible(seleccion_hotel).get(1).toArray(), seleccion_hotel.getListaHabitaciones().toArray()[0].toString())); 
+
+       reserva.generarReserva(seleccion_hotel, seleccion_habitacion, clientes(), true);
+        System.out.println(seleccion_hotel.toString() + seleccion_habitacion.toString());
+        sistemaHotel();
     }
     
 }

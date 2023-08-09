@@ -4,6 +4,7 @@ public class Habitacion {
 
     private int numeroHabitacion;
     private boolean estadoHabitacion;
+    private Cliente cliente;
     
     public Habitacion(int numeroHabitacion, boolean estadoHabitacion) {
         this.numeroHabitacion = numeroHabitacion;
@@ -25,11 +26,20 @@ public class Habitacion {
     public void setEstadoHabitacion(boolean estadoHabitacion) {
         this.estadoHabitacion = estadoHabitacion;
     }
+  
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     @Override
     public String toString() {
         return "Habitacion: " + numeroHabitacion + ", Estado: " + (estadoHabitacion != true ? "Disponible" : "Ocupada" )  + "\n";
     }
+
 
     
 }

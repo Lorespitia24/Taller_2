@@ -4,17 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.Cliente;
 import entity.Habitacion;
 import entity.Hotel;
 
 public class Reserva {
 
    private ArrayList<Hotel> listaHoteles;
+   private ArrayList<Cliente> listaClientes;
     
     public Reserva() {
         listaHoteles = new ArrayList<>();
+        listaClientes = new ArrayList<>();
     }
-   
+   //crear cliente
+   public Cliente crearCliente(String nombre,int cedula, String empresa) {
+        Cliente cliente = new Cliente(nombre, cedula, empresa);
+        listaClientes.add(cliente);
+        return cliente;
+    }
     
     //crear hoteles
 	public void crearHotel(String nombreHotel, int cantidadMaximaHabitaciones) {
@@ -27,10 +35,10 @@ public class Reserva {
 
 
     //Crear una reserva
-     public void generarReserva(Hotel hotel, Habitacion habitacion, boolean estadoHabitacion) {
+     public void generarReserva(Hotel hotel, Habitacion habitacion, Cliente cliente, boolean estadoHabitacion) {
         for (int i = 0; i < listaHoteles.size(); i++) {
 			if (listaHoteles.get(i).getId() == hotel.getId()) {
-                reservarHabitacion(hotel, habitacion, estadoHabitacion);
+                reservarHabitacion(hotel, habitacion, cliente, estadoHabitacion);
 				listaHoteles.remove(i);
 				listaHoteles.add(i, hotel);  
 				break;
@@ -39,10 +47,15 @@ public class Reserva {
 	}
 
     //
-        public void reservarHabitacion(Hotel hotel, Habitacion habitacion, boolean estadoHabitacion) {
+        public void reservarHabitacion(Hotel hotel, Habitacion habitacion,Cliente cliente, boolean estadoHabitacion) {
         for (int i = 0; i < hotel.getListaHabitaciones().size(); i++) {
 			if (hotel.getListaHabitaciones().get(i).getNumeroHabitacion() == habitacion.getNumeroHabitacion()) {
                 habitacion.setEstadoHabitacion(estadoHabitacion);
+                if (estadoHabitacion == false) {
+                    habitacion.setCliente(null);
+                } else {
+                     habitacion.setCliente(cliente);
+                }
 				hotel.getListaHabitaciones().remove(i);
                 hotel.getListaHabitaciones().add(i, habitacion);
 				break;
@@ -71,7 +84,11 @@ public class Reserva {
         public ArrayList<Hotel> getListaHoteles() {
             return listaHoteles;
         }
+        public ArrayList<Cliente> getListaClientes() {
+            return listaClientes;
+        }
     
+        
 
     
 
